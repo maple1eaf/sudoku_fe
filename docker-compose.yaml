@@ -1,0 +1,20 @@
+services:
+  sudoku-fe:
+    build: ./
+    container_name: sudoku-fe
+    network_mode: bridge
+    environment:
+      - HOST_OS=Unraid
+      - HOST_HOSTNAME=MapleUnraid
+      - HOST_CONTAINERNAME=sudoku-fe
+      - TZ=America/Los_Angeles
+      - PUID=1001
+      - PGID=100
+      - UMASK=002
+    labels:
+      - net.unraid.docker.managed=dockerman
+      - net.unraid.docker.webui='http://[IP]:[PORT:8102]'
+      - net.unraid.docker.icon='https://masterpiecer-images.s3.yandex.net/bb6f71b7b46f11ee84dd1e2d0b427d15:4'
+    ports:
+      - 8102:80
+    restart: unless-stopped
