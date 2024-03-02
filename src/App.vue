@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import axios from "axios";
 import SudokuMatrix from "./components/SudokuMatrix.vue";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 const puzzle = ref([
   ['', '', '', '', '', '', '', '', ''],
@@ -88,7 +89,7 @@ const onChangeFileUpload = async (event) => {
   formData.append('sudoku_image_file', imageFile.value);
 
   try {
-    const endpoint = "http://192.168.50.50:8101/sudoku/load/image";
+    const endpoint = API_BASE_URL + "/sudoku/load/image";
     const response = await axios.post(endpoint, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -112,13 +113,12 @@ const onChangeFileUpload = async (event) => {
 const onClickSolveSudokuPuzzle = async () => {
   const dataMatrix = utilsCopyConvertToData(puzzle.value)
   try {
-    const endpoint = "http://192.168.50.50:8101/sudoku/solve";
+    const endpoint = API_BASE_URL + "/sudoku/solve";
     const response = await axios.post(endpoint, { matrix: dataMatrix }, {
       headers: {
         'Content-Type': 'application/json',
       }
     })
-    console.log(response.data)
     if (response.data !== null) {
       shouldSudokuSolveResultDisplay.value = true;
     }
