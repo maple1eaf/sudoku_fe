@@ -5,6 +5,8 @@ import SudokuMatrix from "./components/SudokuMatrix.vue";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
+axios.defaults.withCredentials = true;
+
 const puzzle = ref([
   ['', '', '', '', '', '', '', '', ''],
   ['', '', '', '', '', '', '', '', ''],
